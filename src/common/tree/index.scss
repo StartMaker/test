@@ -1,0 +1,100 @@
+@import '@beisen-phoenix/style-token/css/variable.scss';
+@import '../../style/flex.scss';
+.department-tree {
+  height: 100%;
+  @include scrollBar;
+  overflow: scroll;
+
+  &-hd {
+    position: relative;
+    height: 46px;
+  }
+
+  &-bd {
+    width: 100%;
+    height: 354px;
+    box-sizing: border-box;
+    padding: 8px 0 0 8px;
+  }
+
+  &-content {
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+  }
+
+  &-list {
+    float: left;
+    width: auto;
+    min-width: 100%;
+  }
+
+  &-item {
+    @include Fs-1;
+    display: block;
+    width: auto;
+    padding: 4px 0 4px 8px;
+    margin-right: 6px;
+    white-space: nowrap;
+    user-select: none;
+    color: $M2;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(133, 194, 255, .1);
+      .department-tree-btn {
+        display: inline;
+      }
+    }
+  }
+
+  &-item-selected {
+    // @extend .item-common;
+    background: rgba(133, 194, 255, .2);
+    &:hover {
+      background: rgba(133, 194, 255, .2);
+    }
+  }
+
+  &-node {
+    @extend %flex-start-center;
+  }
+
+  &-name {
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  &-status {
+    color: $M4;
+  }
+
+  &-sibling {
+    display: inline-block;
+    width: 80px;
+    padding-left: $Sp-3;
+  }
+
+  &-btn {
+    display: none;
+    color: #106ECC;
+    cursor: pointer;
+    &:hover {
+      color: #1D86F0;
+    }
+  }
+
+  &-collapse,
+  &-expand,
+  &-disabled,
+  &-loading {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-right: 6px;
+  }
+  &-space {
+    width: 0;
+    margin-right: 20px;
+  }
+}

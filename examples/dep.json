@@ -1,0 +1,63 @@
+{
+  "tree": [
+    {
+      "DepartmentId": -1,
+      "DepartmentName": "哇咔咔a",
+      "DepartmentCode": "",
+      "ParentDepartmentId": -2,
+      "DepartmentStatus": true,
+      "WithSubEnable": true,
+      "HasChildrenEnable": true,
+      "HasChildrenDisabled": true
+    },
+    {
+      "DepartmentId": 690591,
+      "DepartmentName": "技术部",
+      "DepartmentCode": "01",
+      "ParentDepartmentId": -1,
+      "DepartmentStatus": true,
+      "WithSubEnable": true,
+      "HasChildrenEnable": true,
+      "HasChildrenDisabled": true
+    },
+    {
+      "DepartmentId": 690592,
+      "DepartmentName": "市场部",
+      "DepartmentCode": "0211",
+      "ParentDepartmentId": -1,
+      "DepartmentStatus": true,
+      "WithSubEnable": true,
+      "HasChildrenEnable": true,
+      "HasChildrenDisabled": false
+    },
+    {
+      "DepartmentId": 718041,
+      "DepartmentName": "差旅测试部门",
+      "DepartmentCode": "517",
+      "ParentDepartmentId": -1,
+      "DepartmentStatus": false,
+      "WithSubEnable": true,
+      "HasChildrenEnable": true,
+      "HasChildrenDisabled": false
+    }
+  ],
+  "table": [{
+      "DepartmentId": 718119,
+      "ParentDepartmentName": "哇咔咔a",
+      "DepartmentName": "新增测试5",
+      "DepartmentCode": "11111",
+      "DepartmentStatus": true,
+      "WithSub": false,
+      "WithSubEnable": true
+    },
+    {
+      "DepartmentId": 718121,
+      "ParentDepartmentName": "新增测试5",
+      "DepartmentName": "新增测试3",
+      "DepartmentCode": "12121",
+      "DepartmentStatus": true,
+      "WithSub": false,
+      "WithSubEnable": true
+    }
+  ]
+}

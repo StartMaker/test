@@ -1,0 +1,10 @@
+@import '@beisen-phoenix/style-token/css/variable.scss';
+@import '../../style/flex.scss';
+.department-check {
+  @extend %flex-between-center;
+  @include Fs-1;
+  &-title {
+    @include Fs-2;
+    color: $M4
+  }
+}

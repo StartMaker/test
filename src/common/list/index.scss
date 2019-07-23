@@ -1,0 +1,74 @@
+@import '@beisen-phoenix/style-token/css/variable.scss';
+.department-list {
+  @include scrollBar;
+  height: 100%;
+  background: #fff;
+  box-sizing: border-box;
+  overflow-y: auto;
+
+  &-multi {
+    border: 1px solid #F0F2F5;
+    border-radius: $Ra-2;
+    padding-top: $Sp-2;
+  }
+
+  &-item {
+    cursor: pointer;
+
+  }
+
+  &-text {
+    @include Fs-1;
+    color: $M2;
+    padding: $Sp-2 0 $Sp-2 $Sp-2;
+    margin-right: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    user-select: none;
+    &-multi {
+      padding: $Sp-2 $Sp-3;
+    }
+    &:hover,
+    &-selected {
+      background: hexToRgba($S5, .1);
+    }
+  }
+
+  &-highlight {
+    border-radius: $Ra-1;
+    background: hexToRgba($D1, .2);
+  }
+
+  &-parent {
+    color: $M4;
+    margin-left: $Sp-3;
+  }
+
+  &-status {
+    color: $M4;
+    margin-left: $Sp-2;
+  }
+
+  &-void {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    margin-top: -70px;
+
+    &-icon {
+      position: relative;
+      top: 0;
+      left: 50%;
+      margin-left: -38px;
+    }
+
+    &-title {
+      @include Fs-2;
+      color: #BBBFEE;
+      text-align: center;
+      margin-top: 6px;
+    }
+  }
+}

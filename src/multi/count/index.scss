@@ -1,0 +1,20 @@
+@import '@beisen-phoenix/style-token/css/variable.scss';
+@import '../../style/flex.scss';
+.department-count {
+  @extend %flex-start-center;
+  @include Fs-1;
+  color: $M4;
+  padding-bottom: $Sp-3;
+  &-title {
+    @include Fs-2;
+    margin-right: $Sp-3;
+  }
+
+  &-selected {
+    color: $M3;
+  }
+
+  &-total {
+    color: $M5;
+  }
+}

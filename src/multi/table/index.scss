@@ -1,0 +1,131 @@
+@import '@beisen-phoenix/style-token/css/variable.scss';
+@import '../../style/flex.scss';
+.department-table {
+  height: calc(100% - 30px);
+  &-bd {
+    height: 100%;
+    border: 1px solid $M7;
+    box-sizing: border-box;
+    border-radius: 3px;
+    background: #fff;
+    overflow: hidden;
+  }
+  %item-common {
+    @include Fs-1;
+    color: $M2;
+    white-space: nowrap;
+    user-select: none;
+    cursor: pointer;
+  }
+  &-item {
+    @extend %item-common;
+    &:hover {
+      background: rgba(133, 194, 255, .1);
+    }
+  }
+
+  &-item-selected {
+    @extend %item-common;
+    background: rgba(133, 194, 255, .2);
+  }
+  .ant-table-small {
+    border: none;
+  }
+  .ant-table-small > .ant-table-content .ant-table-header {
+    overflow: hidden !important;
+    margin-bottom: 0 !important;
+  }
+  .ant-table-small > .ant-table-content > .ant-table-body {
+    margin: 0;
+  }
+  .ant-table-thead > tr > th {
+    font-size: 12px;
+    color: $M4;
+    font-weight: normal;
+  }
+  // .ant-table-thead > tr > th:last-child {
+  //   width: calc((100% - 10px) / 4 + 10px);
+  // }
+  .ant-table-tbody > tr:hover:not(.ant-table-expanded-row) > td {
+    background: none;
+  }
+  &-code, &-name, &-parent, &-withsub {
+    // width: 25%;
+    // height: 37px;
+    // min-width: 100px;
+    box-sizing: border-box;
+  }
+  &-text {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  // &-code {
+  //   min-width: 72px;
+  // }
+  &-withsub {
+    text-align: center !important;
+  }
+  &-check {
+    display: block;
+    width: 14px;
+    line-height: 20px;
+    overflow: hidden;
+    margin-left: 17px;
+  }
+}
+table, thead, tbody, tr {
+  // display: block;
+}
+td, th {
+  // display: inline-block;
+}
+// .ant-table-thead {
+//   border-bottom: none !important;
+//   background-color: rgba(230, 232, 235, .2) !important;
+// }
+.ant-table-header {
+  padding-right: $Sp-4;
+  background: #E6E8EB !important;
+}
+.ant-table-thead {
+  tr {
+    // @extend %flex-between-center;
+    // border-bottom: none !important;
+  }
+  th {
+    border-bottom: none !important;
+    // background: none !important;
+    padding: $Sp-3 $Sp-5 !important;
+  }
+}
+// .ant-table-row:last-child td {
+//   border-bottom: 1px solid $M7 !important;
+// }
+.ant-table-body {
+  @include scrollBar;
+
+  &:focus {
+    outline: none;
+  }
+}
+// .ant-table-tbody {
+//   // max-height: 352px;
+//   overflow: auto;
+// }
+.ant-table-tbody {
+  tr {
+    border-bottom: none !important;
+  }  
+  td {
+    border-bottom: 1px solid $M7 !important;
+    padding: $Sp-3 $Sp-5 !important;
+  }
+}
+// .ant-table-small > .ant-table-content .ant-table-placeholder, .ant-table-small > .ant-table-content .ant-table-row:last-child td {
+//   border-bottom: 1px solid $M7;
+// }
+// .ant-checkbox-inner {
+//   width: 14px;
+//   height: 14px;
+// }

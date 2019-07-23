@@ -1,0 +1,55 @@
+@import '@beisen-phoenix/style-token/css/variable.scss';
+@import '../style/flex.scss';
+
+.department-single {
+  height: 100%;
+  @extend %flex-start-center;
+  @include flex-direction(column);
+  @include Fs-1;
+
+  &-hd {
+    box-sizing: border-box;
+    width: 100%;
+    padding: $Sp-6 $Sp-6 $Sp-5;
+  }
+  &-bd {
+    @include flex(1 1 auto);
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+  &-wrap {
+    height: 100%;
+    @extend %flex-start-center;
+    @include flex-direction(column);
+    overflow: hidden;
+  }
+  &-check {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 $Sp-6;
+    margin-bottom: $Sp-3;
+  }
+  &-tree {
+    @include flex(1 1 auto);
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: $Sp-6;
+    overflow: hidden;
+  }
+  &-list {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding-left: $Sp-6;
+  }
+  &-ft {
+    box-sizing: border-box;
+    width: 100%;
+    padding: $Sp-4 $Sp-6;
+    border-top: 1px solid #F0F2F5;
+  }
+}

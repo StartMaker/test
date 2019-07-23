@@ -1,0 +1,32 @@
+@import '@beisen-phoenix/style-token/css/variable.scss';
+@import '../../style/flex.scss';
+
+.department-arrow {
+  @extend %flex-center-center;
+  @include flex-direction(column);
+  padding: 0 $Sp-5;
+  height: 100%;
+
+  &-btn {
+    @extend %flex-center-center;
+    width: 30px;
+    height: 30px;
+    border-radius: $Ra-2;
+    background: $S3;
+    margin-bottom: $Sp-5;
+    cursor: pointer;
+
+    &.disable {
+      background: hexToRgba($S3, .5);
+      cursor: not-allowed;
+    }
+  }
+
+  &-l {
+
+  }
+
+  &-r {
+
+  }
+}

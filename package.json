@@ -1,0 +1,62 @@
+{
+  "name": "department",
+  "version": "1.0.1",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "start": "italent-thunder start",
+    "build": "italent-thunder build prod --mode development",
+    "build-prod": "italent-thunder build prod",
+    "lib": "stl build lib",
+    "examples": "sbl start --port 9001",
+    "prepublish": "npm run lib",
+    "commit": "git-cz"
+  },
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.beisencorp.com:ux-phoenix/department.git"
+  },
+  "peerDependencies": {
+    "react": "16.x.x",
+    "react-dom": "16.x.x"
+  },
+  "devDependencies": {
+    "@beisen/ts": "1.x.x",
+    "@beisen/build": "1.x.x",
+    "@beisen/babel": "7.x.x",
+    "@beisen/storybook": "1.x.x",
+    "@beisen/storybook-react": "4.x.x",
+    "@beisen/italent-thunder": "1.x.x",
+    "@beisen/webpack": "4.x.x",
+    "commitizen": "2.x.x",
+    "cz-conventional-changelog": "2.x.x",
+    "react": "16.x.x",
+    "react-dom": "16.x.x"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "dependencies": {
+    "@beisen-phoenix/button": "^1.0.41",
+    "@beisen-phoenix/checkbox": "^3.0.0-rc.25",
+    "@beisen-phoenix/common-utils": "^1.0.0",
+    "@beisen-phoenix/icon": "^1.0.22",
+    "@beisen-phoenix/input": "^1.0.26",
+    "@beisen-phoenix/loading": "^1.0.16",
+    "@beisen-phoenix/search": "^1.0.12",
+    "@beisen-phoenix/style-token": "^1.0.39",
+    "@beisen-phoenix/tooltip": "^3.0.0-rc.20",
+    "antd": "^3.20.5",
+    "classnames": "^2.2.6",
+    "styled-components": "^4.3.2"
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "maintained node versions",
+    "not dead"
+  ]
+}
