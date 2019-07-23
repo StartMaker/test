@@ -1,0 +1,95 @@
+.department-list {
+  height: 100%;
+  background: #fff;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.department-list::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.department-list::-webkit-scrollbar-track {
+  border-radius: 100px;
+  background-color: transparent;
+}
+
+.department-list::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 100px;
+  background-color: rgba(14, 17, 20, 0.1);
+  background-clip: content-box;
+}
+
+.department-list::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(14, 17, 20, 0.3);
+}
+
+.department-list-multi {
+  border: 1px solid #F0F2F5;
+  border-radius: 3px;
+  padding-top: 4px;
+}
+
+.department-list-item {
+  cursor: pointer;
+}
+
+.department-list-text {
+  font-size: 12px;
+  line-height: 20px;
+  color: #33383d;
+  padding: 4px 0 4px 4px;
+  margin-right: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  user-select: none;
+}
+
+.department-list-text-multi {
+  padding: 4px 8px;
+}
+
+.department-list-text:hover, .department-list-text-selected {
+  background: rgba(133, 194, 255, 0.1);
+}
+
+.department-list-highlight {
+  border-radius: 2px;
+  background: rgba(250, 193, 5, 0.2);
+}
+
+.department-list-parent {
+  color: #83898f;
+  margin-left: 8px;
+}
+
+.department-list-status {
+  color: #83898f;
+  margin-left: 4px;
+}
+
+.department-list-void {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  margin-top: -70px;
+}
+
+.department-list-void-icon {
+  position: relative;
+  top: 0;
+  left: 50%;
+  margin-left: -38px;
+}
+
+.department-list-void-title {
+  font-size: 14px;
+  line-height: 22px;
+  color: #BBBFEE;
+  text-align: center;
+  margin-top: 6px;
+}

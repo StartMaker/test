@@ -1,0 +1,25 @@
+@charset "UTF-8";
+/*
+ * flex，兼容IE10
+*/
+.department-check {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.department-check {
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.department-check-title {
+  font-size: 14px;
+  line-height: 22px;
+  color: #83898f;
+}

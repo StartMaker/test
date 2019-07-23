@@ -1,0 +1,36 @@
+@charset "UTF-8";
+/*
+ * flex，兼容IE10
+*/
+.department-arrow, .department-arrow-btn {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.department-arrow {
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  padding: 0 12px;
+  height: 100%;
+}
+
+.department-arrow-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 3px;
+  background: #1d86f0;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.department-arrow-btn.disable {
+  background: rgba(29, 134, 240, 0.5);
+  cursor: not-allowed;
+}
