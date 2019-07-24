@@ -3,6 +3,7 @@
 .department-check {
   @extend %flex-between-center;
   @include Fs-1;
+  color: $M3;
   &-title {
     @include Fs-2;
     color: $M4

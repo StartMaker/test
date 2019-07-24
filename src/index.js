@@ -3,12 +3,15 @@ import React from 'react';
 import Search from './common/search';
 import Single from './single';
 import Multi from './multi';
+import './style/index.scss';
+
 
 export default class Department extends React.Component {
   constructor(props) {
     super();
     this.state = {
       multi: !!props.multi,
+      expandLevel: props.expandLevel || 2,
       treeData: [],
       searchValue: '',
       searchData: [],
@@ -223,6 +226,7 @@ export default class Department extends React.Component {
   onMove = type => {
     const { /*showSearchList, */searchValue, selectedData, tableData, maxCount } = this.state;
     let from = '';
+
     const _tableData = [];
     if (type == 'remove') {
       from = 'table';
@@ -236,8 +240,10 @@ export default class Department extends React.Component {
         node.selectedInTable = false;
       });
     }
+    const _selectedData = selectedData[from];
     // 清除选中状态
-    selectedData[from].forEach(node => {
+    for (let i = 0, l = _selectedData.length; i < l; i++) {
+      const node = _selectedData[i];
       const index = tableData.findIndex(item => item.departmentId == node.departmentId);
       index != -1 && tableData.splice(index, 1);
       if (from == 'table') {
@@ -247,9 +253,13 @@ export default class Department extends React.Component {
         node.selected = false;
         node.selectedInTable = true;
         node.parent && (node.parent.allChildrenSelected = false);
-        tableData.length + _tableData.length < maxCount && _tableData.push(node);
+        if (tableData.length + _tableData.length < maxCount) {
+          _tableData.push(node);
+        } else {
+          break;
+        }
       }
-    });
+    }
     
     // this.setState({
     //   tableData: tableData.unshift(..._tableData)
@@ -312,7 +322,8 @@ export default class Department extends React.Component {
    * @level 需要设置的level值
    */
   setTreeDataParam = (tree = [], parent) => {
-    let { level = -1 } = parent;
+    const { expandLevel } = this.state;
+    let { level = -1, departmentName = '' } = parent;
     level += 1;
     for (let i = 0, l = tree.length; i < l; i++) {
       const node = tree[i];
@@ -321,13 +332,11 @@ export default class Department extends React.Component {
       node.selected = false;
       node.allChildrenSelected = false;
       node.parent = parent;
-      if (level == 0) {
+      if (level < expandLevel && node.Children.length) {
         // 一级节点默认展开
         node.expand = true;
-        node.parentDepartmentName = '';
-      } else {
-        node.parentDepartmentName = parent.departmentName;
       }
+      node.parentDepartmentName = departmentName;
       if (node.hasChildrenEnable || node.hasChildrenDisabled) {
         node.Children = node.Children || [];
       }

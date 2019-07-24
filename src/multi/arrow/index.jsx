@@ -12,11 +12,11 @@ const Arrow = props => {
   const rightClass = leftSelected ? '' : ' disable';
   return (
     <div className="department-arrow">
-      <div className={'department-arrow-btn' + leftClass} onClick={() => onMove('remove')}>
-        <Left width="14" height="14" color="white"/>
-      </div>
       <div className={'department-arrow-btn' + rightClass} onClick={() => onMove('add')}>
         <Right width="14" height="14" color="white"/>
+      </div>
+      <div className={'department-arrow-btn' + leftClass} onClick={() => onMove('remove')}>
+        <Left width="14" height="14" color="white"/>
       </div>
     </div>
   );

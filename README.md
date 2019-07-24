@@ -17,6 +17,7 @@
 | leftTitle | 可选组织的标题 | `string` | `可选组织` | 否 | 多选时才会用到 |
 | rightTitle | 已选组织的标题 | `string` | `已选组织` | 否 | 多选时才会用到 |
 | maxCount | 多选时的最大可选数 | `number` | 200 | 否 | 多选时才会用到 |
+| expandLevel | 树形组件默认展开的层级 | `number` | 2 | 否 | 实际展开效果同时取决与treeData数据中是否有相应层级的数据 |
 | columns | 自定义配置已选列表 | `array` | `组织名称` `上级组织` `包含下级` | 否 | table使用了antd组件，columns的配置可参考 [antd文档](https://ant.design/components/table-cn/) |
 
 ### 相关示例

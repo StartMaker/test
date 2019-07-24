@@ -15,18 +15,39 @@
     color: $M2;
     white-space: nowrap;
     user-select: none;
+    // border-bottom: 1px solid $M7 !important;
+    // box-shadow: 0 1px 0 -1px $M7,;
     cursor: pointer;
   }
   &-item {
     @extend %item-common;
+    // box-shadow: inset 0 1px 0 $M7;
     &:hover {
-      background: hexToRgba($S5, .1);;
+      // border-bottom: 1px solid hexToRgba($S5, .2) !important;
+      // box-shadow: 0 -1px 0 hexToRgba($S5, .2);
+      background: hexToRgba($S5, .1);
+      // z-index: 1;
+      td {
+        border-bottom: 1px solid hexToRgba($S5, .2) !important;
+      }
+    }
+    td {
+      border-bottom: 1px solid $M7 !important;
+      padding: $Sp-3 $Sp-5 !important;
     }
   }
 
   &-item-selected {
     @extend %item-common;
-    background: hexToRgba($S5, .1);;
+    // border-bottom: 1px solid hexToRgba($S5, .2) !important;
+    // box-shadow: 0 -1px 0 hexToRgba($S5, .2);
+    background: hexToRgba($S5, .1);
+    // z-index: 1;
+    td {
+      padding: $Sp-3 $Sp-5 !important;
+      // border-top: 1px solid hexToRgba($S5, .2) !important;
+      border-bottom: 1px solid hexToRgba($S5, .2) !important;
+    }
   }
   .ant-table-small {
     border: none;
@@ -34,8 +55,8 @@
   .ant-table-small > .ant-table-content .ant-table-header {
     overflow: hidden !important;
     margin-bottom: 0 !important;
-    padding-right: $Sp-4;
-    background: #E6E8EB !important;
+    // padding-right: $Sp-4;
+    background: hexToRgba($M6, .2) !important;
   }
   .ant-table-small > .ant-table-content > .ant-table-body {
     margin: 0;
@@ -47,8 +68,7 @@
     font-weight: normal;
     border-bottom: none !important;
     background: none !important;
-    padding: $Sp-3 $Sp-5 !important;
-    color: $M1;
+    padding: $Sp-4 $Sp-5 !important;
   }
   // .ant-table-thead > tr > th:last-child {
   //   width: calc((100% - 10px) / 4 + 10px);
@@ -56,7 +76,7 @@
 
   .ant-table-body {
     @include scrollBar;
-
+    overflow: auto !important;
     &:focus {
       outline: none;
     }
@@ -64,30 +84,30 @@
 
   .ant-table-tbody {
     tr {
-      border-bottom: none !important;
+      // border-bottom: none !important;
     }  
-    td {
-      border-bottom: 1px solid $M7 !important;
-      padding: $Sp-3 $Sp-5 !important;
-    }
+    // td {
+    //   border-bottom: none !important;
+    //   padding: $Sp-3 $Sp-5 !important;
+    // }
   }
   .ant-table-tbody > tr:hover:not(.ant-table-expanded-row) > td {
     background: none;
   }
   &-code, &-name, &-parent {
-    height: 37px;
-    display: inline-block;
-    width: 135px;
+    // height: 37px;
+    // display: inline-block;
+    width: 140px;
     box-sizing: border-box;
   }
   &-withsub {
-    height: 37px;
-    display: inline-block;
+    // height: 37px;
+    // display: inline-block;
     width: 72px;
     box-sizing: border-box;
   }
   &-text {
-    display: inline-block;
+    display: block;
     max-width: 100px;
     box-sizing: border-box;
     white-space: nowrap;

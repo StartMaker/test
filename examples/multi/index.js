@@ -47,14 +47,14 @@ export default class extends Component {
     return arr;
   }
 
-  getSearchData = () => {
+  getSearchData = (value) => {
     let i = 0;
     const list = [];
     while (i++ < 15) {
       const ran = (Math.random()*4e3).toFixed(0).toString();
       list.push({
         departmentId: ran,
-        departmentName: '名称'+ ran,
+        departmentName: '名称'+value+ ran,
         parentDepartmentName: '父级'+ran,
         departmentStatus: ran < 2e3,
         selected: false
@@ -68,17 +68,22 @@ export default class extends Component {
       searchValue: value
     });
     return new Promise((resolve, reject) => {
-      const list = this.getSearchData()
-      resolve(list);
+      setTimeout(() => {
+        const list = this.getSearchData(value.trim())
+        resolve(list);
+      }, 1e3);
     })
   }
 
   onExpand = department => {
     return new Promise((resolve, reject) => {
-      const tree = this.getSubTreeData(department)
-      resolve(tree);
+      setTimeout(() => {
+        const tree = this.getSubTreeData(department)
+        resolve(tree);
+      }, 1e3);
     })
   }
+
   onCancel = department => {
     console.log('onCancel');
   }
@@ -99,9 +104,10 @@ export default class extends Component {
           treeData={treeData}
           tableData={tableData}
           multi={true}
+          expandLevel={2}
           leftTitle="可选组织1"
           rightTitle="已选组织1"
-          maxCount={5}
+          maxCount={99}
           columns={[]}
         />
       </div>

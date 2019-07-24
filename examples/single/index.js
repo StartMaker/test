@@ -22,24 +22,9 @@ export default class extends Component {
   getRootData = () => {
     setTimeout(() => {
       this.setState({
-        treeData: this.formatTreeData(DATA.tree)
+        treeData: DATA.tree
       })
     }, 500);
-  }
-
-  formatTreeData = data => {
-    return data.map(item => {
-      const { DepartmentId, DepartmentName, ParentDepartmentId, DepartmentStatus, WithSubEnable, HasChildrenEnable, HasChildrenDisabled } = item;
-      return {
-        departmentId: DepartmentId,
-        departmentName: DepartmentName,
-        parentDepartmentId: ParentDepartmentId,
-        departmentStatus: DepartmentStatus,
-        withSubEnable: WithSubEnable,
-        hasChildrenEnable: HasChildrenEnable,
-        hasChildrenDisabled: HasChildrenDisabled
-      }
-    })
   }
 
   getSubTreeData = department => {
@@ -62,14 +47,14 @@ export default class extends Component {
     return arr;
   }
 
-  getSearchData = () => {
+  getSearchData = (value) => {
     let i = 0;
     const list = [];
     while (i++ < 15) {
       const ran = (Math.random()*4e3).toFixed(0).toString();
       list.push({
         departmentId: ran,
-        departmentName: '名称'+ ran,
+        departmentName: '名称'+ value + ran,
         parentDepartmentName: '父级'+ran,
         departmentStatus: ran < 2e3,
         selected: false
@@ -78,13 +63,13 @@ export default class extends Component {
     return list
   }
 
-  onChange = value => {
+  onSearchChange = value => {
     this.setState({
       searchValue: value
     });
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        const list = this.getSearchData()
+        const list = this.getSearchData(value.trim())
         resolve(list);
       }, 1e3);
     })
@@ -111,7 +96,7 @@ export default class extends Component {
       <div className="single-main">
         <Default
           searchValue={searchValue}
-          onSearchChange={this.onChange}
+          onSearchChange={this.onSearchChange}
           onExpand={this.onExpand}
           onSubmit={this.onSubmit}
           searchData={searchData}

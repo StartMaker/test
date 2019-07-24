@@ -31,6 +31,16 @@
       "hasChildrenDisabled": false
     },
     {
+      "departmentId": 6905922,
+      "departmentName": "市场部1",
+      "departmentCode": "02111",
+      "parentDepartmentId": 690592,
+      "departmentStatus": true,
+      "withSubEnable": true,
+      "hasChildrenEnable": true,
+      "hasChildrenDisabled": false
+    },
+    {
       "departmentId": 718041,
       "departmentName": "差旅测试部门",
       "departmentCode": "517",
