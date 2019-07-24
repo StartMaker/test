@@ -1,12 +1,12 @@
 ## Department 部门选择组件
->1. 提供：单选/多选
->2. 使用时需提供固定宽高的容器，建议宽高，单选：`340*420`，多选：`640*420`；已设置内边距。
->3. example中的带阴影容器为测试容器，不包含在本组件内
+>- 提供：单选/多选
+>- 使用时需提供固定宽高的容器，建议宽高，单选：`340*420`，多选：`640*420`；已设置内边距。
+>- example中的带阴影容器为测试容器，不包含在本组件内
 
 ### API
 
 | 参数 | 说明 | 类型 | 默认值 | 是否必传 | 备注 |
-| --- | --- | --- | --- | --- | --- |
+| --- | --- | :---: | :---: | :---: | --- |
 | onSearchChange | 搜索框中值变化时的回调，参数为输入框的value | `async function` | 无 | 是 | 该回调函数应该return一个`Promise`对象，异步返回的数据为department对象组成的数组 |
 | onExpand | 树形组件中，部门展开的回调；当被展开的部门无子部门数据时会调用该函数，参数为department对象 | `async function` | 无 | 是 | 该回调函数应该return一个`Promise`对象，异步返回的数据为department对象组成的数组 |
 | onCancel | 『取消』按钮点击时的回调 | `function` | 无 | 是 | 多选时才会用到 |
@@ -19,7 +19,9 @@
 | maxCount | 多选时的最大可选数 | `number` | 200 | 否 | 多选时才会用到 |
 | columns | 自定义配置已选列表 | `array` | `组织名称` `上级组织` `包含下级` | 否 | table使用了antd组件，columns的配置可参考 [antd文档](https://ant.design/components/table-cn/) |
 
-### department对象格式
+### 相关示例
+
+###### department对象格式
 ```
 {
   departmentId: '组织id',
@@ -33,12 +35,52 @@
   hasChildrenDisabled: '是否包含已停用的子级'
 }
 ```
-
-### dep对象格式
+---
+###### dep对象格式
 ```
 {
   departmentId: '组织id',
   departmentName: '组织名称',
   withSub: '是否包含下级'
+}
+```
+---
+###### 自定义columns示例，以下为其中一列的配置
+```
+<!-- 注：自定义columns时需要配置className，以控制每一列显示样式 -->
+{
+  title: '组织名称',
+  dataIndex: 'departmentName',
+  key: 'departmentName',
+  className: 'department-table-name',
+  render: (value, node) => {
+    const { departmentStatus } = node;
+    value += departmentStatus ? '' : '(已停用)';
+    return (
+      <Tooltip title={value} showOverflowTooltip={true}>
+        <span className="department-table-text">{value}</span>
+      </Tooltip>
+    );
+  }
+}
+```
+---
+###### onSearchChange回调
+```
+onSearchChange = value => {
+  return new Promise((resolve, reject) => {
+    const list = this.getSearchData()
+    resolve(list);
+  })
+}
+```
+---
+###### onExpand回调
+```
+onExpand = department => {
+  return new Promise((resolve, reject) => {
+    const tree = this.getSubTreeData(department)
+    resolve(tree);
+  })
 }
 ```

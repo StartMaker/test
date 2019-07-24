@@ -1,5 +1,5 @@
 import React from 'react';
-import { AddSquareS, ReduceSquares, Loading } from '@beisen-phoenix/icon';
+import { AddSquareS, ReduceSquares, Loading, NoData } from '@beisen-phoenix/icon';
 import './index.scss';
 
 const Item = props => {
@@ -80,6 +80,8 @@ const Tree = props => {
   const { multi, treeData, onExpand, onSelect, onSelectSibling, onDoubleClick, showDisable } = props;
   return (
     <div className="department-tree">
+    {
+      treeData.length > 0 ?
       <div className="department-tree-list">
       {
         treeData.map(department => {
@@ -93,6 +95,12 @@ const Tree = props => {
         })
       }
       </div>
+      :
+      <div className="department-tree-void" >
+        <NoData />
+        <div className="department-tree-void-desc">这里什么都没有...</div>
+      </div>
+    }
     </div>
   );
 };

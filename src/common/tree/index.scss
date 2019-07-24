@@ -41,7 +41,7 @@
     cursor: pointer;
 
     &:hover {
-      background: rgba(133, 194, 255, .1);
+      background: hexToRgba($S5, .1);;
       .department-tree-btn {
         display: inline;
       }
@@ -50,9 +50,9 @@
 
   &-item-selected {
     // @extend .item-common;
-    background: rgba(133, 194, 255, .2);
+    background: hexToRgba($S5, .1);;
     &:hover {
-      background: rgba(133, 194, 255, .2);
+      background: hexToRgba($S5, .1);;
     }
   }
 
@@ -96,5 +96,16 @@
   &-space {
     width: 0;
     margin-right: 20px;
+  }
+
+  &-void {
+    @include Fs-2;
+    color: #BBBFEE;
+    height: 100%;
+    @extend %flex-center-center;
+    @include flex-direction(column);
+    &-desc {
+      margin-top: 20px;
+    }
   }
 }

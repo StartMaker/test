@@ -16,6 +16,7 @@ export default class Department extends React.Component {
       searchLoading: false,
       searchLoading: false,
       showDisable: false,
+      maxCount: props.maxCount || 200,
       // showSearchList: false,
       selectedData: {
         tree: [],
@@ -220,7 +221,7 @@ export default class Department extends React.Component {
    * @param type 数据操作类型 add/remove
    */
   onMove = type => {
-    const { /*showSearchList, */searchValue, selectedData, tableData } = this.state;
+    const { /*showSearchList, */searchValue, selectedData, tableData, maxCount } = this.state;
     let from = '';
     const _tableData = [];
     if (type == 'remove') {
@@ -246,7 +247,7 @@ export default class Department extends React.Component {
         node.selected = false;
         node.selectedInTable = true;
         node.parent && (node.parent.allChildrenSelected = false);
-        _tableData.push(node);
+        tableData.length + _tableData.length < maxCount && _tableData.push(node);
       }
     });
     
@@ -447,9 +448,10 @@ export default class Department extends React.Component {
       searchLoading,
       showDisable,
       selectedData,
-      searchValue
+      searchValue,
+      maxCount
     } = this.state;
-    const { leftTitle, rightTitle, maxCount, columns } = this.props;
+    const { leftTitle, rightTitle, columns } = this.props;
     return (
         multi ?
         <Multi

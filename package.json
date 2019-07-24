@@ -1,6 +1,6 @@
 {
-  "name": "department",
-  "version": "1.0.2",
+  "name": "@beisen-phoenix/department",
+  "version": "1.0.3",
   "description": "",
   "main": "lib/index.js",
   "scripts": {

@@ -22,27 +22,10 @@ export default class extends Component {
   getRootData = () => {
     setTimeout(() => {
       this.setState({
-        treeData: this.formatTreeData(DATA.tree),
-        tableData: this.formatTreeData(DATA.table)
+        treeData: DATA.tree,
+        tableData: DATA.table
       })
     }, 500);
-  }
-
-  formatTreeData = data => {
-    return data.map(item => {
-      const { DepartmentId, DepartmentName, ParentDepartmentId, ParentDepartmentName, DepartmentStatus, WithSub, WithSubEnable, HasChildrenEnable, HasChildrenDisabled } = item;
-      return {
-        departmentId: DepartmentId,
-        departmentName: DepartmentName,
-        parentDepartmentId: ParentDepartmentId,
-        departmentStatus: DepartmentStatus,
-        parentDepartmentName: ParentDepartmentName,
-        withSub: WithSub,
-        withSubEnable: WithSubEnable,
-        hasChildrenEnable: HasChildrenEnable,
-        hasChildrenDisabled: HasChildrenDisabled
-      }
-    })
   }
 
   getSubTreeData = department => {
@@ -80,24 +63,20 @@ export default class extends Component {
     return list
   }
 
-  onChange = value => {
+  onSearchChange = value => {
     this.setState({
       searchValue: value
     });
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const list = this.getSearchData()
-        resolve(list);
-      }, 1e3);
+      const list = this.getSearchData()
+      resolve(list);
     })
   }
 
   onExpand = department => {
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const tree = this.getSubTreeData(department)
-        resolve(tree);
-      }, 1e3);
+      const tree = this.getSubTreeData(department)
+      resolve(tree);
     })
   }
   onCancel = department => {
@@ -108,14 +87,12 @@ export default class extends Component {
   }
 
   render () {
-    const { searchValue, searchData, treeData, tableData } = this.state;
-
-    console.log('treeData0', treeData)
+    const { searchValue, treeData, tableData } = this.state;
     return (
       <div className="multi-main">
         <Default
           searchValue={searchValue}
-          onSearchChange={this.onChange}
+          onSearchChange={this.onSearchChange}
           onExpand={this.onExpand}
           onCancel={this.onCancel}
           onSubmit={this.onSubmit}
@@ -124,7 +101,7 @@ export default class extends Component {
           multi={true}
           leftTitle="可选组织1"
           rightTitle="已选组织1"
-          maxCount={100}
+          maxCount={5}
           columns={[]}
         />
       </div>

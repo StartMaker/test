@@ -25,7 +25,7 @@ export default class TableBox extends React.Component {
       className: 'department-table-name',
       render: (value, node) => {
         const { departmentStatus } = node;
-        value += departmentStatus ? '' : '（已停用）';
+        value += departmentStatus ? '' : '(已停用)';
         return (
           <Tooltip
             title={value}
@@ -55,7 +55,6 @@ export default class TableBox extends React.Component {
       dataIndex: 'withSub',
       key: 'withSub',
       className: 'department-table-withsub',
-      width: 72,
       render: (value, node) => {
         const { withSubEnable } = node;
         const isDisabled = !withSubEnable && !value;
@@ -67,7 +66,6 @@ export default class TableBox extends React.Component {
             onClick={
               e => {
                 e.stopPropagation();
-                // onCheck(node, !value);
               }
             }
           >
@@ -149,7 +147,7 @@ export default class TableBox extends React.Component {
             size="small"
             scroll={{ y: tableHeight }}
             locale={{
-              emptyText: '暂无数据'
+              emptyText: '请从左侧选择'
             }}
           />
         </div>
