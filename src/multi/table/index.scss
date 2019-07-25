@@ -18,6 +18,10 @@
     // border-bottom: 1px solid $M7 !important;
     // box-shadow: 0 1px 0 -1px $M7,;
     cursor: pointer;
+    td {
+      border-bottom: 1px solid $M7 !important;
+      padding: $Sp-3 $Sp-5 !important;
+    }
   }
   &-item {
     @extend %item-common;
@@ -27,13 +31,9 @@
       // box-shadow: 0 -1px 0 hexToRgba($S5, .2);
       background: hexToRgba($S5, .1);
       // z-index: 1;
-      td {
-        border-bottom: 1px solid hexToRgba($S5, .2) !important;
-      }
-    }
-    td {
-      border-bottom: 1px solid $M7 !important;
-      padding: $Sp-3 $Sp-5 !important;
+      // td {
+      //   border-bottom: 1px solid hexToRgba($S5, .2) !important;
+      // }
     }
   }
 
@@ -43,11 +43,11 @@
     // box-shadow: 0 -1px 0 hexToRgba($S5, .2);
     background: hexToRgba($S5, .1);
     // z-index: 1;
-    td {
-      padding: $Sp-3 $Sp-5 !important;
-      // border-top: 1px solid hexToRgba($S5, .2) !important;
-      border-bottom: 1px solid hexToRgba($S5, .2) !important;
-    }
+    // td {
+    //   padding: $Sp-3 $Sp-5 !important;
+    //   // border-top: 1px solid hexToRgba($S5, .2) !important;
+    //   border-bottom: 1px solid hexToRgba($S5, .2) !important;
+    // }
   }
   .ant-table-small {
     border: none;
@@ -108,23 +108,25 @@
   }
   &-text {
     display: block;
-    max-width: 100px;
+    max-width: 100%;
     box-sizing: border-box;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  // &-code {
-  //   min-width: 72px;
-  // }
   &-withsub {
     text-align: center !important;
   }
   &-check {
+    position: relative;
+    left: -7px;
     display: block;
     width: 14px;
-    line-height: 20px;
-    overflow: hidden;
-    margin-left: 17px;
+    margin-left: 50%;
+  }
+  table {
+    width: 100%;
+    table-layout: fixed; 
+    word-break: break-all;
   }
 }

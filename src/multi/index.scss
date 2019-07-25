@@ -21,6 +21,7 @@
   &-left {
     @extend %flex-start-center;
     @include flex-direction(column);
+    min-width: 200px;
     width: 200px;
     height: 100%;
   }

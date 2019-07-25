@@ -5,11 +5,11 @@ import { Left, Right } from '@beisen-phoenix/icon';
 import './index.scss';
 
 const Arrow = props => {
-  const { onMove, showList, treeSelected, searchSelected, tableSelected } = props;
+  const { onMove, showList, isMax, treeSelected, searchSelected, tableSelected } = props;
   const rightSelected = tableSelected;
   const leftSelected = showList ? searchSelected : treeSelected;
   const leftClass = rightSelected ? '' : ' disable';
-  const rightClass = leftSelected ? '' : ' disable';
+  const rightClass = leftSelected && !isMax ? '' : ' disable';
   return (
     <div className="department-arrow">
       <div className={'department-arrow-btn' + rightClass} onClick={() => onMove('add')}>

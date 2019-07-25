@@ -1,5 +1,9 @@
 @import '@beisen-phoenix/style-token/css/variable.scss';
 
-.department-single, .department-multi {
-  font-family: $family;
+.department {
+  width: 100%;
+  height: 100%;
+  &-single, &-multi {
+    font-family: $family;
+  }
 }

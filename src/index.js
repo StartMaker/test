@@ -1,42 +1,63 @@
 import React from 'react';
 
-import Search from './common/search';
 import Single from './single';
 import Multi from './multi';
+import Message from '@beisen-phoenix/message';
 import './style/index.scss';
 
 
 export default class Department extends React.Component {
   constructor(props) {
     super();
+    const { multi, tableData = [], treeData = [], expandLevel = 2, maxCount, showDisableCheck } = props;
     this.state = {
-      multi: !!props.multi,
-      expandLevel: props.expandLevel || 2,
-      treeData: [],
+      // 是否多选
+      multi,
+      // 默认展开层级
+      expandLevel,
+      // 首次传入的树形数据
+      treeData,
+      // 搜索框值
       searchValue: '',
+      // 搜索结果
       searchData: [],
-      tableData: [],
+      // 已选择的值
+      tableData,
+      // 搜索loading
       searchLoading: false,
-      searchLoading: false,
+      // 树形组件loading
+      treeLoading: false,
+      // 是否显示「显示停用」勾选框
+      showDisableCheck: typeof showDisableCheck === 'boolean' ? showDisableCheck : true,
+      // 「显示停用」勾选状态
       showDisable: false,
-      maxCount: props.maxCount || 200,
-      // showSearchList: false,
+      // 默认值99，最大200
+      maxCount: typeof maxCount === 'number' ? maxCount : 99999,
+      // 显示警告提示
+      showMessage: false,
+      // 已选中的值
       selectedData: {
         tree: [],
         search: [],
         table: []
       }
     };
+    // 虚拟唯一根节点，实际存在多个根节点，该虚拟节点为实际根节点的父级
     this.virtualRoot = {};
-    this.mouId = props.pageData && props.pageData.PObjectDataID;
+    // 所有树形节点，为一维数组
     this.mainTreeData = [];
-    this.mainSearchData = [];
-    this.mainTableData = [];
+    // 剩余可选数量
+    this.residualTreeCount = 0;
+    this.residualSearchCount = 0;
+    this.residual = {
+      tree: 0,
+      search: 0
+    };
     this.tbody = null;
   }
 
   componentWillReceiveProps(nextProps) {
-    const { tableData: currentTableData } = this.state;
+    const { tableData: currentTableData, maxCount } = this.state;
     const { treeData, tableData } = nextProps;
     if (this.mainTreeData.length == 0) {
       this.mainTreeData = this.dealRootData(treeData);
@@ -44,6 +65,7 @@ export default class Department extends React.Component {
       this.refreshShowData('tree');
     }
     if (currentTableData.length == 0) {
+      this.residual.tree = this.residual.search = maxCount - tableData.length;
       this.setState({
         tableData
       }, () => this.refreshShowData('table'));
@@ -52,7 +74,7 @@ export default class Department extends React.Component {
 
   componentDidMount() {
     // this.getRootData();
-    this.tbody = document.querySelector('.department-multi .ant-table-tbody');
+    this.tbody = document.querySelector('.department-multi .ant-table-body');
   }
 
   /**
@@ -62,6 +84,9 @@ export default class Department extends React.Component {
    */
   onExpand = (department, expand) => {
     department.expand = expand;
+    this.setState({
+      treeLoading: true
+    });
     if (expand && (!department.Children || !department.Children.length)) {
       //异步获取数据
       const { departmentId, departmentName, departmentStatus, withSubEnable } = department;
@@ -79,9 +104,15 @@ export default class Department extends React.Component {
         department.allChildrenSelected = false;
         department.loading = false;
         this.refreshShowData('tree');
+        this.setState({
+          treeLoading: false
+        });
       }).catch(() => {});
     } else {
       this.refreshShowData('tree');
+      this.setState({
+        treeLoading: false
+      });
     }
   }
 
@@ -101,30 +132,96 @@ export default class Department extends React.Component {
         withSub
       });
     } else {
-      const targetSelectedData = selectedData[from];
-      if (from == 'table') {
-        department.selectedInTable = selected;
+      if (from == 'tree') {
+        this.onTreeSelect(department, selected);
+      } else if (from == 'search') {
+        this.onSearchSelect(department, selected);
       } else {
-        department.selected = selected;
-        if (from == 'tree') {
-          if (selected) {
-            this.checkAllChildrenSelected(department.parent, showDisable);
-          } else {
-            department.parent.allChildrenSelected = false;
-          }
-        }
+        this.onTableSelect(department, selected);
       }
+    }
+  }
+
+  onTableSelect = (department, selected) => {
+    const { multi, selectedData, tableData } = this.state;
+    const targetSelectedData = selectedData['table'];
+    department.selectedInTable = selected;
+    // if (selected) {
+    //   targetSelectedData.push(department);
+    // } else {
+    //   const index = targetSelectedData.indexOf(department);
+    //   index >= 0 && targetSelectedData.splice(index, 1);
+    // }
+    // this.setState({
+    //   selectedData
+    // });
+    this.refreshShowData('table');
+  }
+
+  onSearchSelect = (department, selected) => {
+    const { multi, selectedData, tableData } = this.state;
+    if (!multi) {
+      const { departmentId, departmentName, withSub } = department;
+      this.props.onSubmit({
+        departmentId,
+        departmentName,
+        withSub
+      });
+    } else if (selected && this.checkResidual('tree')) {
+      return;
+    } else {
+      department.selected = selected;
+      const diff = tableData.findIndex(item => item.departmentId == department.departmentId) < 0 ? 1 : 0;
       if (selected) {
-        targetSelectedData.push(department);
+        this.residual.search-=diff;
       } else {
-        const index = targetSelectedData.indexOf(department);
-        index >= 0 && targetSelectedData.splice(index, 1);
+        this.residual.search+=diff
       }
       this.setState({
         selectedData
       });
-      this.refreshShowData(from);
+      this.refreshShowData('search');
     }
+  }
+
+  onTreeSelect = (department, selected) => {
+    const { multi, selectedData, tableData, showDisable } = this.state;
+    if (!multi) {
+      const { departmentId, departmentName, withSub } = department;
+      this.props.onSubmit({
+        departmentId,
+        departmentName,
+        withSub
+      });
+    } else if (selected && this.checkResidual('tree')) {
+      return;
+    } else {
+      department.selected = selected;
+      const diff = tableData.findIndex(item => item.departmentId == department.departmentId) < 0 ? 1 : 0;
+      if (selected) {
+        this.checkAllChildrenSelected(department.parent, showDisable);
+        this.residual.tree-=diff;
+      } else {
+        department.parent.allChildrenSelected = false;
+        this.residual.tree+=diff
+      }
+      this.setState({
+        selectedData
+      });
+      this.refreshShowData('tree');
+    }
+  }
+
+  showMessage = () => {
+    this.setState({
+      showMessage: true
+    });
+  }
+
+  hideMessage = () => {
+    this.setState({
+      showMessage: false
+    });
   }
 
   /**
@@ -132,14 +229,28 @@ export default class Department extends React.Component {
    * @param parent 父级部门
    */
   onSelectSibling = parent => {
-    const { showDisable } = this.state;
+    const { showDisable, tableData } = this.state;
     const { allChildrenSelected, Children } = parent;
-    parent.allChildrenSelected = !allChildrenSelected;
-    Children.forEach(child => {
-      if (showDisable || child.departmentStatus) {
-        child.selected = !allChildrenSelected;
+    const checkedStatus = !allChildrenSelected;
+    // parent.allChildrenSelected = checkedStatus;
+    // Children.forEach(child => {
+    //   if (showDisable || child.departmentStatus) {
+    //     child.selected = checkedStatus;
+    //   }
+    // });
+    let i = 0;
+    for (; i < Children.length; i++) {
+      if (checkedStatus && this.checkResidual('tree')) {
+        break;
       }
-    });
+      const child = Children[i];
+      const index = tableData.findIndex(item => item.departmentId == child.departmentId);
+      if (showDisable || child.departmentStatus) {
+        child.selected = checkedStatus;
+        checkedStatus && index < 0 && this.residual.tree--;
+      }
+    }
+    i == Children.length && (parent.allChildrenSelected = checkedStatus);
     this.refreshShowData('tree');
   }
 
@@ -161,25 +272,57 @@ export default class Department extends React.Component {
     this.refreshShowData('tree');
   }
 
+  checkResidual = from => {
+    if (this.residual[from] <= 0) {
+      this.showMessage();
+      return true
+    }
+    return false;
+  }
+
   /**
    * @desc 双击部门时直接移动
    * @param department 双击的部门
    * @param from 双击的区域 tree/search/table
    */
   onDoubleClick = (department, from) => {
-    const { selectedData, tableData } = this.state;
+    from == 'table' ? this.onTableDoubleClick(department) : this.onTreeOrSearchDoubleClick(department, from);
+  }
+
+  onTreeOrSearchDoubleClick = (department, from) => {
+    const { selectedData, tableData, maxCount } = this.state;
     const index = tableData.findIndex(item => item.departmentId == department.departmentId);
     index != -1 && tableData.splice(index, 1);
-    if (from != 'table') {
-      selectedData['table'].forEach(node => {
-        node.selectedInTable = false;
-      });
-      // department.selected = false;
-      department.withSub = false;
-      department.selectedInTable = true;
-      tableData.unshift(department);
-      this.tbody.scrollTop = 0;
+    if(tableData.length >= maxCount) {
+      this.showMessage();
+      return;
     }
+    selectedData['table'].forEach(node => {
+      node.selectedInTable = false;
+    });
+    // department.selected = false;
+    department.withSub = false;
+    department.selectedInTable = true;
+    tableData.unshift(department);
+    this.tbody.scrollTop = 0;
+    if (index == -1) {
+      if (from == 'tree') {
+        this.residual.search--;
+        !department.selected && this.residual.tree--
+      } else {
+        this.residual.tree--;
+        !department.selected && this.residual.search--
+      }
+    }
+    this.refreshShowData('table');
+  }
+
+  onTableDoubleClick = department => {
+    const { tableData } = this.state;
+    const index = tableData.findIndex(item => item.departmentId == department.departmentId);
+    index != -1 && tableData.splice(index, 1);
+    this.residual.tree++;
+    this.residual.search++;
     this.refreshShowData('table');
   }
 
@@ -245,13 +388,21 @@ export default class Department extends React.Component {
     for (let i = 0, l = _selectedData.length; i < l; i++) {
       const node = _selectedData[i];
       const index = tableData.findIndex(item => item.departmentId == node.departmentId);
-      index != -1 && tableData.splice(index, 1);
+      const exist = index >= 0;
+      exist && tableData.splice(index, 1);
       if (from == 'table') {
         node.selectedInTable = false;
+        this.residual.tree++;
+        this.residual.search++;
       } else {
         node.withSub = false;
         node.selected = false;
         node.selectedInTable = true;
+        if (from == 'tree') {
+          !exist && this.residual.search--;
+        } else {
+          !exist && this.residual.tree--;
+        }
         node.parent && (node.parent.allChildrenSelected = false);
         if (tableData.length + _tableData.length < maxCount) {
           _tableData.push(node);
@@ -332,7 +483,7 @@ export default class Department extends React.Component {
       node.selected = false;
       node.allChildrenSelected = false;
       node.parent = parent;
-      if (level < expandLevel && node.Children.length) {
+      if (level < expandLevel && node.Children && node.Children.length) {
         // 一级节点默认展开
         node.expand = true;
       }
@@ -404,7 +555,7 @@ export default class Department extends React.Component {
    * @param from 需要刷新的目标 tree/search/table
    */
   refreshShowData = from => {
-    const { selectedData, searchData, tableData } = this.state;
+    const { selectedData, searchData, tableData, maxCount } = this.state;
     // const { searchValue } = this.props;
     if (from == 'tree') {
       const [ treeData, _selectedTree ] = this.getTreeData();
@@ -455,13 +606,18 @@ export default class Department extends React.Component {
       searchData,
       tableData,
       searchLoading,
+      treeLoading,
+      showDisableCheck,
       showDisable,
       selectedData,
       searchValue,
-      maxCount
+      maxCount,
+      showMessage
     } = this.state;
     const { leftTitle, rightTitle, columns } = this.props;
     return (
+      <div className="department">
+      {
         multi ?
         <Multi
           multi={multi}
@@ -470,6 +626,8 @@ export default class Department extends React.Component {
           searchData={searchData}
           tableData={tableData}
           searchLoading={searchLoading}
+          treeLoading={treeLoading}
+          showDisableCheck={showDisableCheck}
           showDisable={showDisable}
           selectedData={selectedData}
           leftTitle={leftTitle}
@@ -494,6 +652,8 @@ export default class Department extends React.Component {
           searchValue={searchValue}
           searchData={searchData}
           searchLoading={searchLoading}
+          treeLoading={treeLoading}
+          showDisableCheck={showDisableCheck}
           showDisable={showDisable}
           selectedData={selectedData}
           onExpand={this.onExpand}
@@ -502,6 +662,18 @@ export default class Department extends React.Component {
           onSelect={this.onSelect}
           onShowDisabledData={this.onShowDisabledData}
         />
+      }
+      {
+        showMessage &&
+        <Message
+          type="warning"
+          message="可选数量已达到上限~"
+          duration={2e3}
+          onClose={this.hideMessage}
+          invisibleMask={true}
+        />
+      }
+      </div>
     )
   }
 }

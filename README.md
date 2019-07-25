@@ -1,6 +1,6 @@
 ## Department 部门选择组件
 >- 提供：单选/多选
->- 使用时需提供固定宽高的容器，建议宽高，单选：`340*420`，多选：`640*420`；已设置内边距。
+>- 使用时需提供固定宽高的容器，建议宽高，单选：`340*420`，多选(组件最小宽度)：`640*420`；已设置内边距。
 >- example中的带阴影容器为测试容器，不包含在本组件内
 
 ### API
@@ -15,8 +15,9 @@
 | tableData | 默认选中的数据 | `array` | [ ] | 否 | 该数据为department对象组成的一维数组 |
 | multi | 是否多选 | `boolean` | `false` | 否 | 根据该值确认显示单选或者多选组件 |
 | leftTitle | 可选组织的标题 | `string` | `可选组织` | 否 | 多选时才会用到 |
-| rightTitle | 已选组织的标题 | `string` | `已选组织` | 否 | 多选时才会用到 |
-| maxCount | 多选时的最大可选数 | `number` | 200 | 否 | 多选时才会用到 |
+| rightTitle | 已选组织的标题 | `string` | `已选组织` | 否 | 多选时才会用到 |showDisableCheck
+| maxCount | 多选时的最大可选数 | `number` | 99 | 否 | 多选时才会用到，最大值为200 |
+| showDisableCheck | 是否显示「显示停用」勾选框 | `boolean` | true | 否 | 如果配置为false，则勾选框不会显示，并且展示的数据将不包含“已停用”的部门 |
 | expandLevel | 树形组件默认展开的层级 | `number` | 2 | 否 | 实际展开效果同时取决与treeData数据中是否有相应层级的数据 |
 | columns | 自定义配置已选列表 | `array` | `组织名称` `上级组织` `包含下级` | 否 | table使用了antd组件，columns的配置可参考 [antd文档](https://ant.design/components/table-cn/) |
 

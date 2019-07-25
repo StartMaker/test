@@ -20,6 +20,7 @@ export default class extends Component {
   }
 
   getRootData = () => {
+    console.log(DATA.tree.length);
     setTimeout(() => {
       this.setState({
         treeData: DATA.tree,
@@ -103,11 +104,12 @@ export default class extends Component {
           onSubmit={this.onSubmit}
           treeData={treeData}
           tableData={tableData}
+          showDisableCheck={false}
           multi={true}
           expandLevel={2}
           leftTitle="可选组织1"
           rightTitle="已选组织1"
-          maxCount={99}
+          maxCount={5}
           columns={[]}
         />
       </div>

@@ -9,9 +9,7 @@ import './index.scss';
 export default class Single extends React.Component {
   constructor(props) {
     super();
-    const showDisableCheck = typeof props.showDisableCheck === 'boolean' ? props.showDisableCheck : true;
     this.state = {
-      showDisableCheck,
       withSub: true
     };
   }
@@ -34,8 +32,8 @@ export default class Single extends React.Component {
   }
 
   render() {
-    const { withSub, showDisableCheck } = this.state;
-    const { treeData, searchValue, searchData, showDisable, treeLoading, searchLoading, onExpand, onSelectSibling, onDoubleClick, onSearchChange, onSelect } = this.props;
+    const { withSub } = this.state;
+    const { treeData, searchValue, searchData, showDisableCheck, showDisable, treeLoading, searchLoading, onExpand, onSelectSibling, onDoubleClick, onSearchChange, onSelect } = this.props;
     return (
       <div className="department-single">
         <div className="department-single-hd">
@@ -52,8 +50,9 @@ export default class Single extends React.Component {
               showDisableCheck &&
               <div className="department-single-check">
                 <Check
-                  title="可选"
+                  title=""
                   label={"显示停用"}
+                  showCheck={showDisableCheck}
                   checked={showDisable}
                   onChange={this.onShowDisableChange}
                 />
@@ -90,6 +89,7 @@ export default class Single extends React.Component {
           <Check
             label={"包含下级数据"}
             checked={withSub}
+            showCheck={true}
             onChange={this.onIncludSubChange}
           />
         </div>

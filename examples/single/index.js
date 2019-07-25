@@ -100,6 +100,7 @@ export default class extends Component {
           onExpand={this.onExpand}
           onSubmit={this.onSubmit}
           searchData={searchData}
+          showDisableCheck={false}
           multi={false}
           treeData={treeData}
           tableData={tableData}

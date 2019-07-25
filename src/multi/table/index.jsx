@@ -5,6 +5,7 @@ import 'antd/lib/table/style/index.css';
 // import 'antd/lib/checkbox/style/index.css';
 import Tooltip from '@beisen-phoenix/tooltip';
 import Checkbox from '@beisen-phoenix/checkbox';
+import { addResizeListener, removeResizeListener } from '@beisen/common-func';
 import './index.scss';
 
 export default class TableBox extends React.Component {
@@ -17,7 +18,7 @@ export default class TableBox extends React.Component {
       tableHeight: 288
     };
     this.thead = null;
-    this.tbody = null;
+    this.table = null;
     this.columns = [{
       title: '组织名称',
       dataIndex: 'departmentName',
@@ -86,24 +87,25 @@ export default class TableBox extends React.Component {
     }];
   }
   componentDidMount() {
-    this.thead = document.querySelector('.department-table .ant-table-thead');
-    this.tbody = document.querySelector('.department-table .ant-table-tbody');
+    this.thead = document.querySelector('.department-table .ant-table-header');
+    this.table = document.querySelector('.department-table .ant-table-body');
     const tableWrap = document.querySelector('.department-table');
-    // addResizeListener(this.tbody, this.onTableResize);
+    addResizeListener(this.table, this.onTableResize);
     const { offsetWidth, offsetHeight } = tableWrap;
-    console.log(offsetWidth, offsetHeight)
+    // const table = document.querySelector('.department-table .ant-table-body table');
+    // table.style.width = offsetWidth + 'px';
     this.setState({
       tableWidth: offsetWidth - 10,
-      tableHeight: offsetHeight - 35
+      tableHeight: offsetHeight - 40
     });
   }
   componentWillUnmount() {
-    // removeResizeListener(this.tbody, this.onTableResize)
+    removeResizeListener(this.table, this.onTableResize)
   }
   onTableResize = () => {
-    const tr = this.tbody.querySelector('tr');
+    const tr = this.table.querySelector('table');
     const trWidth = tr && tr.clientWidth;
-    const { offsetWidth, clientHeight, scrollHeight } = this.tbody;
+    const { offsetWidth, clientHeight, scrollHeight } = this.table;
     if (clientHeight < scrollHeight) {
       this.thead.style.paddingRight = (offsetWidth - trWidth) + 'px';
     } else {

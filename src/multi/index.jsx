@@ -38,11 +38,11 @@ export default class Multi extends React.Component {
   }
 
   render() {
-    const { withSub, showDisableCheck } = this.state;
     const { 
       treeData,
       searchValue,
       searchData,
+      showDisableCheck,
       showDisable,
       tableData,
       selectedData,
@@ -71,6 +71,7 @@ export default class Multi extends React.Component {
               <Check
                 title={leftTitle || '可选组织'}
                 label={"显示停用"}
+                showCheck={showDisableCheck}
                 checked={showDisable}
                 onChange={this.onShowDisableChange}
               />
@@ -106,6 +107,7 @@ export default class Multi extends React.Component {
                     searchData={searchData}
                     loading={searchLoading}
                     showDisable={showDisable}
+                    onDoubleClick={onDoubleClick}
                     onSelect={onSelect}
                   />
                 </div>
@@ -115,9 +117,10 @@ export default class Multi extends React.Component {
           <div className="department-multi-center">
             <Arrow
               showList={showSearchList}
-              treeSelected={!!selectedData.tree.length}
-              searchSelected={!!selectedData.search.length}
-              tableSelected={!!selectedData.table.length}
+              treeSelected={selectedData.tree.length}
+              searchSelected={selectedData.search.length}
+              tableSelected={selectedData.table.length}
+              isMax={tableData.length >= maxCount}
               onMove={onMove}
             />
           </div>

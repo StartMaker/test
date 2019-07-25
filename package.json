@@ -46,9 +46,11 @@
     "@beisen-phoenix/icon": "^1.0.22",
     "@beisen-phoenix/input": "^1.0.26",
     "@beisen-phoenix/loading": "^1.0.16",
+    "@beisen-phoenix/message": "^3.0.0-rc.54",
     "@beisen-phoenix/search": "^1.0.12",
     "@beisen-phoenix/style-token": "^1.0.39",
     "@beisen-phoenix/tooltip": "^3.0.0-rc.20",
+    "@beisen/common-func": "0.0.21",
     "antd": "^3.20.5",
     "classnames": "^2.2.6",
     "styled-components": "^4.3.2"
