@@ -131,7 +131,6 @@ export default class TableBox extends React.Component {
   
   render() {
     const { tableHeight } = this.state;
-    console.log('tableHeight', tableHeight);
     const { data, columns } = this.props;
     let tableColumn = typeof columns === 'array' && columns.length > 0 ? columns : this.columns;
 

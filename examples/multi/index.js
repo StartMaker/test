@@ -109,7 +109,7 @@ export default class extends Component {
           expandLevel={2}
           leftTitle="可选组织1"
           rightTitle="已选组织1"
-          maxCount={5}
+          maxCount={88}
           columns={[]}
         />
       </div>

@@ -123,7 +123,7 @@ export default class Department extends React.Component {
    * @param from 来源tree/search/table
    */
   onSelect = (department, selected, from) => {
-    const { multi, selectedData, showDisable } = this.state;
+    const { multi } = this.state;
     if (!multi) {
       const { departmentId, departmentName, withSub } = department;
       this.props.onSubmit({
@@ -143,18 +143,7 @@ export default class Department extends React.Component {
   }
 
   onTableSelect = (department, selected) => {
-    const { multi, selectedData, tableData } = this.state;
-    const targetSelectedData = selectedData['table'];
     department.selectedInTable = selected;
-    // if (selected) {
-    //   targetSelectedData.push(department);
-    // } else {
-    //   const index = targetSelectedData.indexOf(department);
-    //   index >= 0 && targetSelectedData.splice(index, 1);
-    // }
-    // this.setState({
-    //   selectedData
-    // });
     this.refreshShowData('table');
   }
 
@@ -232,12 +221,6 @@ export default class Department extends React.Component {
     const { showDisable, tableData } = this.state;
     const { allChildrenSelected, Children } = parent;
     const checkedStatus = !allChildrenSelected;
-    // parent.allChildrenSelected = checkedStatus;
-    // Children.forEach(child => {
-    //   if (showDisable || child.departmentStatus) {
-    //     child.selected = checkedStatus;
-    //   }
-    // });
     let i = 0;
     for (; i < Children.length; i++) {
       if (checkedStatus && this.checkResidual('tree')) {
@@ -411,10 +394,6 @@ export default class Department extends React.Component {
         }
       }
     }
-    
-    // this.setState({
-    //   tableData: tableData.unshift(..._tableData)
-    // });
     tableData.unshift(..._tableData);
     if (from != 'table') {
       this.refreshShowData('table');
