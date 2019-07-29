@@ -1,0 +1,8 @@
+.department {
+  width: 100%;
+  height: 100%;
+}
+
+.department-single, .department-multi {
+  font-family: "PingFang SC", "Hiragino Sans GB", STHeitiSC, Helvetica, "Helvetica Neue", "Microsoft YaHei", Tahoma;
+}

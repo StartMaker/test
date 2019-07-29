@@ -41,6 +41,7 @@
   -ms-flex-direction: column;
   -webkit-flex-direction: column;
   flex-direction: column;
+  min-width: 200px;
   width: 200px;
   height: 100%;
 }

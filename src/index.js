@@ -22,7 +22,7 @@ export default class Department extends React.Component {
       // 搜索结果
       searchData: [],
       // 已选择的值
-      tableData,
+      tableData: [],
       // 搜索loading
       searchLoading: false,
       // 树形组件loading
@@ -58,7 +58,7 @@ export default class Department extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const { tableData: currentTableData, maxCount } = this.state;
-    const { treeData, tableData } = nextProps;
+    const { treeData, tableData = [] } = nextProps;
     if (this.mainTreeData.length == 0) {
       this.mainTreeData = this.dealRootData(treeData);
       this.virtualRoot.Children = this.mainTreeData;

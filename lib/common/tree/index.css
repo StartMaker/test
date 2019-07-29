@@ -13,9 +13,20 @@
   align-items: center;
 }
 
+.department-tree-void {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
 .department-tree {
   height: 100%;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .department-tree::-webkit-scrollbar {
@@ -85,11 +96,11 @@
 }
 
 .department-tree-item-selected {
-  background: rgba(133, 194, 255, 0.2);
+  background: rgba(133, 194, 255, 0.1);
 }
 
 .department-tree-item-selected:hover {
-  background: rgba(133, 194, 255, 0.2);
+  background: rgba(133, 194, 255, 0.1);
 }
 
 .department-tree-name {
@@ -98,6 +109,7 @@
 }
 
 .department-tree-status {
+  padding-left: 8px;
   color: #83898f;
 }
 
@@ -127,4 +139,18 @@
 .department-tree-space {
   width: 0;
   margin-right: 20px;
+}
+
+.department-tree-void {
+  font-size: 14px;
+  line-height: 22px;
+  color: #BBBFEE;
+  height: 100%;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
+.department-tree-void-desc {
+  margin-top: 20px;
 }
