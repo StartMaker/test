@@ -159,7 +159,7 @@
         }
       }
     ],
-    "Name": "@beisen-phoenix/department",
+    "Name": "Department",
     "Title": "部门选择组件",
     "Description": "部门选择组件",
     "MetaDataType": 1,
