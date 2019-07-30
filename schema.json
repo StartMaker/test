@@ -72,7 +72,7 @@
         "Version": null,
         "Extension": {
           "editable": true,
-          "defaultValue": false,
+          "defaultValue": ["组织名称", "上级组织", "包含下级"],
           "editor": {
             "type": "TextArea"
           }
@@ -166,6 +166,6 @@
     "_TenantId": 0,
     "_AppId": 0,
     "_State": 0,
-    "_Version": "1.1.2"
+    "_Version": "1.1.3"
   }
   
