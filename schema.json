@@ -159,13 +159,13 @@
         }
       }
     ],
-    "Name": "Department",
-    "Title": "部门选择组件",
-    "Description": "部门选择组件",
-    "MetaDataType": 1,
-    "TenantId": 0,
-    "AppId": 0,
-    "State": 0,
-    "Version": "1.1.1"
+    "_Name": "Department",
+    "_Title": "部门选择组件",
+    "_Description": "部门选择组件",
+    "_MetaDataType": 1,
+    "_TenantId": 0,
+    "_AppId": 0,
+    "_State": 0,
+    "_Version": "1.1.1"
   }
   
